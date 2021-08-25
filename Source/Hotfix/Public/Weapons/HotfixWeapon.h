@@ -9,9 +9,9 @@
 #include "GameFramework/Actor.h"
 #include "HotfixWeapon.generated.h"
 
-class UHotfixAbilitySystemComponent;
+class UGASAbilitySystemComponent;
 class AGameCharacter;
-class UHotfixGameplayAbility;
+class UGASGameplayAbility;
 
 UCLASS()
 class HOTFIX_API AHotfixWeapon : public AActor, public IAbilitySystemInterface
@@ -40,7 +40,7 @@ public:
 
 protected:
 	UPROPERTY()
-	UHotfixAbilitySystemComponent* AbilitySystemComponent;
+	UGASAbilitySystemComponent* AbilitySystemComponent;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Replicated, Category = "Weapon")
 	int32 Ammo;
@@ -52,7 +52,7 @@ protected:
 	AGameCharacter* OwningCharacter;
 
 	UPROPERTY(EditAnywhere, Category = "Abilities")
-	TArray<TSubclassOf<UHotfixGameplayAbility>> Abilities;
+	TArray<TSubclassOf<UGASGameplayAbility>> Abilities;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Abilities")
 	TArray<FGameplayAbilitySpecHandle> AbilitySpecHandles;

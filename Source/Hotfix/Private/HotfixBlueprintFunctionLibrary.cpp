@@ -3,7 +3,7 @@
 
 #include "HotfixBlueprintFunctionLibrary.h"
 
-UHotfixGameplayAbility* UHotfixBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromHandle(
+UGASGameplayAbility* UHotfixBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromHandle(
 	UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle)
 {
 	if (AbilitySystemComponent)
@@ -11,14 +11,14 @@ UHotfixGameplayAbility* UHotfixBlueprintFunctionLibrary::GetPrimaryAbilityInstan
 		FGameplayAbilitySpec* AbilitySpec = AbilitySystemComponent->FindAbilitySpecFromHandle(Handle);
 		if (AbilitySpec)
 		{
-			return Cast<UHotfixGameplayAbility>(AbilitySpec->GetPrimaryInstance());
+			return Cast<UGASGameplayAbility>(AbilitySpec->GetPrimaryInstance());
 		}
 	}
 
 	return nullptr;
 }
 
-UHotfixGameplayAbility* UHotfixBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromClass(
+UGASGameplayAbility* UHotfixBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromClass(
 	UAbilitySystemComponent* AbilitySystemComponent, TSubclassOf<UGameplayAbility> InAbilityClass)
 {
 	if (AbilitySystemComponent)
@@ -26,7 +26,7 @@ UHotfixGameplayAbility* UHotfixBlueprintFunctionLibrary::GetPrimaryAbilityInstan
 		FGameplayAbilitySpec* AbilitySpec = AbilitySystemComponent->FindAbilitySpecFromClass(InAbilityClass);
 		if (AbilitySpec)
 		{
-			return Cast<UHotfixGameplayAbility>(AbilitySpec->GetPrimaryInstance());
+			return Cast<UGASGameplayAbility>(AbilitySpec->GetPrimaryInstance());
 		}
 	}
 
@@ -41,7 +41,7 @@ bool UHotfixBlueprintFunctionLibrary::IsPrimaryAbilityInstanceActive(UAbilitySys
 		FGameplayAbilitySpec* AbilitySpec = AbilitySystemComponent->FindAbilitySpecFromHandle(Handle);
 		if (AbilitySpec)
 		{
-			return Cast<UHotfixGameplayAbility>(AbilitySpec->GetPrimaryInstance())->IsActive();
+			return Cast<UGASGameplayAbility>(AbilitySpec->GetPrimaryInstance())->IsActive();
 		}
 	}
 

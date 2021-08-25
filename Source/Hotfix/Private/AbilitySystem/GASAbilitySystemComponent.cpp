@@ -1,17 +1,17 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
 
-#include "HotfixAbilitySystemComponent.h"
+#include "AbilitySystem/GASAbilitySystemComponent.h"
 #include "AbilitySystemComponent.h"
-#include "HotfixGameplayAbility.h"
+#include "AbilitySystem/GASGameplayAbility.h"
 #include "AbilitySystemGlobals.h"
 
-UHotfixAbilitySystemComponent* UHotfixAbilitySystemComponent::GetAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent)
+UGASAbilitySystemComponent* UGASAbilitySystemComponent::GetAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent)
 {
-	return Cast<UHotfixAbilitySystemComponent>(UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(Actor, LookForComponent));
+	return Cast<UGASAbilitySystemComponent>(UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(Actor, LookForComponent));
 }
 
-void UHotfixAbilitySystemComponent::AbilityLocalInputPressed(int32 InputID)
+void UGASAbilitySystemComponent::AbilityLocalInputPressed(int32 InputID)
 {
 	// Consume the input if this InputID is overloaded with GenericConfirm/Cancel and the GenericConfim/Cancel callback is bound
 	if (IsGenericConfirmInputBound(InputID))
@@ -50,7 +50,7 @@ void UHotfixAbilitySystemComponent::AbilityLocalInputPressed(int32 InputID)
 				}
 				else
 				{
-					UHotfixGameplayAbility* GA = Cast<UHotfixGameplayAbility>(Spec.Ability);
+					UGASGameplayAbility* GA = Cast<UGASGameplayAbility>(Spec.Ability);
 					if (GA && GA->bActivateOnInput)
 					{
 						TryActivateAbility(Spec.Handle);
@@ -61,7 +61,7 @@ void UHotfixAbilitySystemComponent::AbilityLocalInputPressed(int32 InputID)
 	}
 }
 
-FGameplayAbilitySpecHandle UHotfixAbilitySystemComponent::FindAbilitySpecHandleForClass(TSubclassOf<UGameplayAbility> AbilityClass, UObject* OptionalSourceObject)
+FGameplayAbilitySpecHandle UGASAbilitySystemComponent::FindAbilitySpecHandleForClass(TSubclassOf<UGameplayAbility> AbilityClass, UObject* OptionalSourceObject)
 {
 	ABILITYLIST_SCOPE_LOCK();
 	for (FGameplayAbilitySpec& Spec : ActivatableAbilities.Items)
@@ -79,7 +79,7 @@ FGameplayAbilitySpecHandle UHotfixAbilitySystemComponent::FindAbilitySpecHandleF
 	return FGameplayAbilitySpecHandle();
 }
 
-bool UHotfixAbilitySystemComponent::TryActivateAbilityFromHandle(FGameplayAbilitySpecHandle InAbilityHandle, bool EndAbilityImmediately)
+bool UGASAbilitySystemComponent::TryActivateAbilityFromHandle(FGameplayAbilitySpecHandle InAbilityHandle, bool EndAbilityImmediately)
 {
 	bool AbilityActivated = false;
 	if (InAbilityHandle.IsValid())
@@ -92,7 +92,7 @@ bool UHotfixAbilitySystemComponent::TryActivateAbilityFromHandle(FGameplayAbilit
 			FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromHandle(InAbilityHandle);
 			if (AbilitySpec)
 			{
-				UHotfixGameplayAbility* Ability = Cast<UHotfixGameplayAbility>(AbilitySpec->GetPrimaryInstance());
+				UGASGameplayAbility* Ability = Cast<UGASGameplayAbility>(AbilitySpec->GetPrimaryInstance());
 				Ability->ExternalEndAbility();
 			}
 		}

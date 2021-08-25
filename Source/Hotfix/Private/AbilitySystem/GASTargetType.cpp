@@ -1,8 +1,8 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
 
-#include "GASTargetType.h"
-#include "GameCharacter.h"
+#include "AbilitySystem/GASTargetType.h"
+#include "Character/GameCharacter.h"
 
 void UGASTargetType::GetTargets_Implementation(AGameCharacter* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const
 {

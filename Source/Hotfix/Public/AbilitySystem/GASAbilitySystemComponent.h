@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
-#include "HotfixAbilitySystemComponent.generated.h"
+#include "GASAbilitySystemComponent.generated.h"
 
 UCLASS()
-class HOTFIX_API UHotfixAbilitySystemComponent : public UAbilitySystemComponent
+class HOTFIX_API UGASAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 
 public:
 	bool bCharacterAbilitiesGiven = false;
 
-	static UHotfixAbilitySystemComponent* GetAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent = false);
+	static UGASAbilitySystemComponent* GetAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent = false);
 
 	virtual void AbilityLocalInputPressed(int32 InputID) override;
 

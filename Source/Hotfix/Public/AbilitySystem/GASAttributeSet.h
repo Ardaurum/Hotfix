@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
-#include "HotfixAttributeSet.generated.h"
+#include "GASAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
  GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
@@ -14,12 +14,12 @@
  GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class HOTFIX_API UHotfixAttributeSet : public UAttributeSet
+class HOTFIX_API UGASAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
 public:
-	UHotfixAttributeSet();
+	UGASAttributeSet();
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -27,7 +27,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing=OnRep_Health)
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UHotfixAttributeSet, Health);
+	ATTRIBUTE_ACCESSORS(UGASAttributeSet, Health);
 
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);

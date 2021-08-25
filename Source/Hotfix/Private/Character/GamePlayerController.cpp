@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GamePlayerController.h"
+#include "Character/GamePlayerController.h"
 
-#include "GameCharacter.h"
+#include "Character/GameCharacter.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Camera/CameraComponent.h"

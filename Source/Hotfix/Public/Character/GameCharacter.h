@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 
-#include "TopDownCharacterMovement.h"
+#include "Character/TopDownCharacterMovement.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-#include "HotfixAbilitySystemComponent.h"
+#include "AbilitySystem/GASAbilitySystemComponent.h"
 #include "GameCharacter.generated.h"
 
-class UHotfixAttributeSet;
+class UGASAttributeSet;
 class UCameraComponent;
 class USpringArmComponent;
 class AHotfixWeapon;
@@ -33,7 +33,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Abilities")
-	TArray<TSubclassOf<class UHotfixGameplayAbility>> CharacterAbilities;
+	TArray<TSubclassOf<class UGASGameplayAbility>> CharacterAbilities;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapons")
 	TSubclassOf<AHotfixWeapon> StartingWeapon;
@@ -66,10 +66,10 @@ private:
 	UCapsuleComponent* CapsuleComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities, meta = (AllowPrivateAccess = "true"))
-	UHotfixAbilitySystemComponent* AbilitySystemComponent;
+	UGASAbilitySystemComponent* AbilitySystemComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities, meta = (AllowPrivateAccess = "true"))
-	UHotfixAttributeSet* Attributes;
+	UGASAttributeSet* Attributes;
 
 	bool bASCInputBound;
 

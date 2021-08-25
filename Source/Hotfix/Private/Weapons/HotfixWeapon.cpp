@@ -1,9 +1,9 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
-#include "HotfixWeapon.h"
-#include "HotfixAbilitySystemComponent.h"
-#include "HotfixGameplayAbility.h"
-#include "GameCharacter.h"
+#include "Weapons/HotfixWeapon.h"
+#include "AbilitySystem/GASAbilitySystemComponent.h"
+#include "AbilitySystem/GASGameplayAbility.h"
+#include "Character/GameCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 AHotfixWeapon::AHotfixWeapon()
@@ -33,7 +33,7 @@ void AHotfixWeapon::SetOwningCharacter(AGameCharacter* InOwningCharacter)
 	OwningCharacter = InOwningCharacter;
 	if (OwningCharacter)
 	{
-		AbilitySystemComponent = Cast<UHotfixAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
+		AbilitySystemComponent = Cast<UGASAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
 		SetOwner(OwningCharacter);
 		AttachToComponent(OwningCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 	}
@@ -52,7 +52,7 @@ void AHotfixWeapon::AddAbilities()
 		return;
 	}
 
-	UHotfixAbilitySystemComponent* AbilitySystem = Cast<UHotfixAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
+	UGASAbilitySystemComponent* AbilitySystem = Cast<UGASAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
 
 	if (!AbilitySystem)
 	{
@@ -66,7 +66,7 @@ void AHotfixWeapon::AddAbilities()
 		return;
 	}
 
-	for (TSubclassOf<UHotfixGameplayAbility>& Ability : Abilities)
+	for (TSubclassOf<UGASGameplayAbility>& Ability : Abilities)
 	{
 		AbilitySpecHandles.Add(AbilitySystem->GiveAbility(
 			FGameplayAbilitySpec(Ability, 1, static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this)));
@@ -80,7 +80,7 @@ void AHotfixWeapon::RemoveAbilities()
 		return;
 	}
 
-	UHotfixAbilitySystemComponent* AbilitySystem = Cast<UHotfixAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
+	UGASAbilitySystemComponent* AbilitySystem = Cast<UGASAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
 
 	if (!AbilitySystem)
 	{

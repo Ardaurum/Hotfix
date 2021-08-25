@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
 
-#include "TopDownCharacterMovement.h"
+#include "Character/TopDownCharacterMovement.h"
 
 void UTopDownCharacterMovement::TickComponent(float DeltaTime, ELevelTick TickType,	FActorComponentTickFunction* ThisTickFunction)
 {

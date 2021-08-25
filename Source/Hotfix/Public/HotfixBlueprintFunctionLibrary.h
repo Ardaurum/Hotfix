@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "HotfixAbilitySystemComponent.h"
-#include "HotfixGameplayAbility.h"
-#include "GASAbilityTypes.h"
+#include "AbilitySystem/GASAbilitySystemComponent.h"
+#include "AbilitySystem/GASGameplayAbility.h"
+#include "AbilitySystem/GASAbilityTypes.h"
 #include "HotfixBlueprintFunctionLibrary.generated.h"
 
 UCLASS()
@@ -16,10 +16,10 @@ class HOTFIX_API UHotfixBlueprintFunctionLibrary : public UBlueprintFunctionLibr
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	static UHotfixGameplayAbility* GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle);
+	static UGASGameplayAbility* GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	static UHotfixGameplayAbility* GetPrimaryAbilityInstanceFromClass(UAbilitySystemComponent* AbilitySystemComponent, TSubclassOf<UGameplayAbility> InAbilityClass);
+	static UGASGameplayAbility* GetPrimaryAbilityInstanceFromClass(UAbilitySystemComponent* AbilitySystemComponent, TSubclassOf<UGameplayAbility> InAbilityClass);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	static bool IsPrimaryAbilityInstanceActive(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle);

@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
 
-#include "GASAbilityTypes.h"
+#include "AbilitySystem/GASAbilityTypes.h"
 
 bool FGASEffectContainerSpec::HasValidEffects() const
 {

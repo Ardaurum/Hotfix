@@ -1,10 +1,10 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
 
-#include "HotfixProjectile.h"
+#include "Weapons/HotfixProjectile.h"
 
-#include "GameCharacter.h"
-#include "GASAbilityTypes.h"
+#include "Character/GameCharacter.h"
+#include "AbilitySystem/GASAbilityTypes.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 

@@ -1,12 +1,12 @@
 // Copyright (c) 2021, Radosław Paszkowski. All rights reserved
 
 
-#include "HotfixGameplayAbility.h"
+#include "AbilitySystem/GASGameplayAbility.h"
 
-#include "GameCharacter.h"
-#include "GASTargetType.h"
+#include "Character/GameCharacter.h"
+#include "AbilitySystem/GASTargetType.h"
 
-UHotfixGameplayAbility::UHotfixGameplayAbility()
+UGASGameplayAbility::UGASGameplayAbility()
 {
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 
@@ -14,14 +14,14 @@ UHotfixGameplayAbility::UHotfixGameplayAbility()
 	bActivateOnInput = true;
 }
 
-FGASEffectContainerSpec UHotfixGameplayAbility::MakeEffectContainerSpecFromContainer(
+FGASEffectContainerSpec UGASGameplayAbility::MakeEffectContainerSpecFromContainer(
 	const FGASEffectContainer& Container, const FGameplayEventData& EventData, int32 OverrideGameplayLevel)
 {
 	FGASEffectContainerSpec ReturnSpec;
 	AActor* OwningActor = GetOwningActorFromActorInfo();
 	AActor* AvatarActor = GetAvatarActorFromActorInfo();
 	AGameCharacter* AvatarCharacter = Cast<AGameCharacter>(AvatarActor);
-	UHotfixAbilitySystemComponent* OwningASC = UHotfixAbilitySystemComponent::GetAbilitySystemComponentFromActor(OwningActor);
+	UGASAbilitySystemComponent* OwningASC = UGASAbilitySystemComponent::GetAbilitySystemComponentFromActor(OwningActor);
 
 	if (OwningASC)
 	{
@@ -43,7 +43,7 @@ FGASEffectContainerSpec UHotfixGameplayAbility::MakeEffectContainerSpecFromConta
 	return ReturnSpec;
 }
 
-FGASEffectContainerSpec UHotfixGameplayAbility::MakeEffectContainerSpec(FGameplayTag ContainerTag,
+FGASEffectContainerSpec UGASGameplayAbility::MakeEffectContainerSpec(FGameplayTag ContainerTag,
 	const FGameplayEventData& EventData, int32 OverrideGameplayLevel)
 {
 	FGASEffectContainer* FoundContainer = EffectContainerMap.Find(ContainerTag);
@@ -55,7 +55,7 @@ FGASEffectContainerSpec UHotfixGameplayAbility::MakeEffectContainerSpec(FGamepla
 	return FGASEffectContainerSpec();
 }
 
-TArray<FActiveGameplayEffectHandle> UHotfixGameplayAbility::ApplyEffectContainerSpec(
+TArray<FActiveGameplayEffectHandle> UGASGameplayAbility::ApplyEffectContainerSpec(
 	const FGASEffectContainerSpec& ContainerSpec)
 {
 	TArray<FActiveGameplayEffectHandle> AllEffects;
@@ -67,7 +67,7 @@ TArray<FActiveGameplayEffectHandle> UHotfixGameplayAbility::ApplyEffectContainer
 	return AllEffects;
 }
 
-void UHotfixGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+void UGASGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnAvatarSet(ActorInfo, Spec);
 
@@ -77,7 +77,7 @@ void UHotfixGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorI
 	}
 }
 
-bool UHotfixGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle,
+bool UGASGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle,
                                                 const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags,
                                                 const FGameplayTagContainer* TargetTags, FGameplayTagContainer* OptionalRelevantTags) const
 {
@@ -85,32 +85,32 @@ bool UHotfixGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle
 	return true;
 }
 
-bool UHotfixGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle,
+bool UGASGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo, FGameplayTagContainer* OptionalRelevantTags) const
 {
 	return Super::CheckCost(Handle, ActorInfo, OptionalRelevantTags) && GASCheckCost_Implementation(Handle, *ActorInfo);
 }
 
-bool UHotfixGameplayAbility::GASCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle,
+bool UGASGameplayAbility::GASCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo& ActorInfo) const
 {
 	return true;
 }
 
-void UHotfixGameplayAbility::ApplyCost(const FGameplayAbilitySpecHandle Handle,
+void UGASGameplayAbility::ApplyCost(const FGameplayAbilitySpecHandle Handle,
 	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const
 {
 	GSApplyCost(Handle, *ActorInfo, ActivationInfo);
 	Super::ApplyCost(Handle, ActorInfo, ActivationInfo);
 }
 
-bool UHotfixGameplayAbility::IsInputPressed() const
+bool UGASGameplayAbility::IsInputPressed() const
 {
 	FGameplayAbilitySpec* Spec = GetCurrentAbilitySpec();
 	return Spec && Spec->InputPressed;
 }
 
-void UHotfixGameplayAbility::ExternalEndAbility()
+void UGASGameplayAbility::ExternalEndAbility()
 {
 	check(CurrentActorInfo);
 

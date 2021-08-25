@@ -8,16 +8,15 @@
 #include "Abilities/GameplayAbility.h"
 #include "Hotfix/Hotfix.h"
 
-#include "HotfixGameplayAbility.generated.h"
+#include "GASGameplayAbility.generated.h"
 
 UCLASS()
-class HOTFIX_API UHotfixGameplayAbility : public UGameplayAbility
+class HOTFIX_API UGASGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 
 public:
-	UHotfixGameplayAbility();
-
+	UGASGameplayAbility();
 	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability")
 	EHotfixAbilityInputID AbilityInputID = EHotfixAbilityInputID::None;

@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameCharacter.h"
+#include "Character/GameCharacter.h"
 
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "TopDownCharacterMovement.h"
+#include "Character/TopDownCharacterMovement.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Abilities/GameplayAbilityTypes.h"
-#include "HotfixWeapon.h"
-#include "HotfixGameplayAbility.h"
-#include "HotfixAttributeSet.h"
+#include "Weapons/HotfixWeapon.h"
+#include "AbilitySystem/GASGameplayAbility.h"
+#include "AbilitySystem/GASAttributeSet.h"
 
 AGameCharacter::AGameCharacter()
 {
@@ -36,11 +36,11 @@ AGameCharacter::AGameCharacter()
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false;
 
-	AbilitySystemComponent = CreateDefaultSubobject<UHotfixAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UGASAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-	Attributes = CreateDefaultSubobject<UHotfixAttributeSet>("Attributes");
+	Attributes = CreateDefaultSubobject<UGASAttributeSet>("Attributes");
 }
 
 bool AGameCharacter::IsAlive() const
@@ -65,7 +65,7 @@ void AGameCharacter::AddCharacterAbilities()
 		return;
 	}
 
-	for (TSubclassOf<UHotfixGameplayAbility>& StartupAbility : CharacterAbilities)
+	for (TSubclassOf<UGASGameplayAbility>& StartupAbility : CharacterAbilities)
 	{
 		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility, 1, static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID), this));
 	}

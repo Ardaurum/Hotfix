@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 
-#include "GASAbilityTypes.h"
+#include "AbilitySystem/GASAbilityTypes.h"
 #include "GameFramework/Actor.h"
 #include "HotfixProjectile.generated.h"
 
